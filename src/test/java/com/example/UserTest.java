@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2018/8/6.
  */
-public class userTest extends DemoApplicationTests {
+public class UserTest extends DemoApplicationTests {
 
     @Resource
     UserDao userDao;
