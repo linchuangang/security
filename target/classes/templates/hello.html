@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<!--/*@thymesVar id="name" type="java.lang.String"*/-->
+<p th:text="'Hello！, ' + ${name} + '!'"></p>
+
+
+<p id="demo">
+    哈哈哈哈哈
+</p>
+<script>
+    document.write("<h1>我是JavaScript</h1>")
+</script>
+<script>
+    function myFunction() {
+        x = document.getElementById("demo");
+        x.innerHTML= "嘻嘻嘻";
+    }
+</script>
+<button type="button" onclick="myFunction()">点我变</button>
+</body>
+</html>

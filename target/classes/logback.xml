@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径 -->
+    <property resource="application.properties"/>
+
+    <!-- 控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出,%d:日期;%thread:线程名;%-5level：级别,从左显示5个字符宽度;%msg:日志消息;%n:换行符 -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} -%msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 按照每天生成日志文件 -->
+    <appender name="FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <Prudent>true</Prudent>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件名  对应application.properties中的值-->
+            <FileNamePattern>${log.file.root}/${log.file.prefix}.%d{yyyy-MM-dd}.log
+            </FileNamePattern>
+            <!--日志文件保留天数 -->
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出,%d:日期;%thread:线程名;%-5level：级别,从左显示5个字符宽度;%msg:日志消息;%n:换行符 -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} -%msg%n</pattern>
+            <charset>UTF-8</charset> <!-- 此处设置字符集 -->
+        </encoder>
+        <!--日志文件最大的大小 -->
+        <triggeringPolicy
+                class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>10MB</MaxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+
+    <!--SQL日志设置 -->
+    <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE"/>
+    <logger name="org.hibernate.type.descriptor.sql.BasicExtractor" level="${log.level.sql}"/>
+    <logger name="org.hibernate.SQL" level="${log.level.sql}"/>
+    <logger name="org.hibernate.engine.QueryParameters" level="${log.level.sql}"/>
+    <logger name="org.hibernate.engine.query.HQLQueryPlan" level="${log.level.sql}"/>
+    <!--JdbcTemplate的日志输出器 -->
+    <logger name="org.springframework.jdbc.core.StatementCreatorUtils" additivity="false" level="TRACE">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+    <logger name="org.springframework.jdbc.core" additivity="true" level="${log.level.sql}">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+    <logger name="java.sql.Connection" additivity="true" level="${log.level.sql}">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+    <logger name="java.sql.Statement" additivity="true" level="${log.level.sql}">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+    <logger name="java.sql.PreparedStatement" additivity="true" level="${log.level.sql}">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+    <logger name="java.sql.ResultSet" additivity="true" level="${log.level.sql}">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <logger name="org.springframework.boot.context.web.ErrorPageFilter" additivity="false" level="debug">
+        <appender-ref ref="FILE"/>
+    </logger>
+
+    <!-- 根日志输出级别 -->
+    <root level="${log.level.root}">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+    </root>
+
+
+</configuration>
