@@ -16,7 +16,7 @@ public class MyInvocationSecurityMetadataSourceService implements FilterInvocati
 
 
     /**
-     * 加载URL权限配置
+     * 加载URL权限配置  todo
      */
     private void loadResourceDefine() {
         resourceMap = new HashMap<String, Collection<ConfigAttribute>>();
@@ -28,6 +28,7 @@ public class MyInvocationSecurityMetadataSourceService implements FilterInvocati
         resourceMap.put("/user/testRole", atts2);
     }
 
+    //此方法是为了判定用户请求的url 是否在权限表中，如果在权限表中，则返回给 decide 方法，用来判定用户是否有此权限。如果不在权限表中则放行。
     public Collection<ConfigAttribute> getAttributes(Object object)
             throws IllegalArgumentException {
         if (resourceMap == null) {

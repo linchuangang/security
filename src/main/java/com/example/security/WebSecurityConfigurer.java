@@ -17,11 +17,10 @@ import org.springframework.security.web.access.intercept.FilterInvocationSecurit
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
 //https://www.jianshu.com/p/c3b79a625d84
-
+//https://www.cnblogs.com/softidea/p/7068149.html
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
-//  启用方法级别的权限认证
+@EnableGlobalMethodSecurity(prePostEnabled = true)//  启用方法级别的权限认证
 class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     @Autowired
